@@ -12,11 +12,12 @@ function clearFields() {
 
 function getElements(response) {
   if (response) {
-    console.log(response);
     $('.showCap').text(`BTC market cap is: ${response[0].market_cap}`);
     $('.showPrice').append(`BTC currenct price ${response[0].price}`);
+  } else{
     $('.showErrors').text(`There was an error: ${response}`);
   }
+  //forgot to have line 19 as an "else" statement, didn't have webpack.config.js line 20 was missing/not configed right.
 }
 
 async function makeApiCall(){
