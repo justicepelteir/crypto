@@ -6,23 +6,40 @@ import CryptoService from './crypto.js';
 
 function clearFields() {
   $('.showErrors').text("");
-  $('.showImg').text("");
-  $('.showDescription').text("");
+  $('.showPrice').text("");
+  $('.showCap').text("");
 }
 
+// --- forEach Version ---
+// function getElements(response) {
+//   response.forEach(function(response) {
+//   if (response) {
+//     $('.showPrice').append(`Information for ${response.id} is shown below:<br>`);
+//     $('.showPrice').append(`${response.id} price: ${response.price}<br>`);
+//     $('.showPrice').append(`${response.id} current market cap: ${response.market_cap}<br><br>`);
+//   } else {
+//     $('.showErrors').text(`There was an error: ${response.message}`);
+//   }
+// });
+
+// --- for loop Version ---
 function getElements(response) {
-  if (response) {
-    $('.showCap').text(`BTC market cap is: ${response[0].market_cap}`);
-    $('.showPrice').append(`BTC currenct price ${response[0].price}`);
-  } else{
-    $('.showErrors').text(`There was an error: ${response}`);
+  for (let i = 0; i < 10; i++) {
+    if(response[i].id && response[i].price) {
+      $('.showPrice').append(`Information for ${response[i].id} is shown below:<br>`);
+      $('.showPrice').append(`${response[i].id} price: ${response[i].price}<br>`);
+      $('.showPrice').append(`${response[i].id} current market cap: ${response[i].market_cap}<br><br>`);
+    } else {
+      $('.showErrors').text(`There was an error: ${response.message}`);
+    }
   }
-  //forgot to have line 19 as an "else" statement, didn't have webpack.config.js line 20 was missing/not configed right.
+  //forgot to have line 18 as an "else" statement, didn't have webpack.config.js line 20 was missing/not configed right.
 }
 
 async function makeApiCall(){
   const response = await CryptoService.getCoin();
   getElements(response);
+  console.log(response);
 }
 
 $(document).ready(function() {

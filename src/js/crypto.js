@@ -3,6 +3,7 @@ export default class CryptoService {
     try {
       let url = `https://api.nomics.com/v1/currencies/ticker?ids=&interval=1d,30d&per-page=100&page=1&key=${process.env.API_KEY}`;
       const response = await fetch (url);
+      console.log(response);
       if (!response.ok){
         throw Error(response.statusText);
       }
